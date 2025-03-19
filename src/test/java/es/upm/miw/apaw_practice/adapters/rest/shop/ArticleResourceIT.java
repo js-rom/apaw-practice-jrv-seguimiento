@@ -103,4 +103,19 @@ class ArticleResourceIT {
                 .exchange()
                 .expectStatus().isBadRequest();
     }
+
+    @Test
+    void testReadAll() {
+        this.webTestClient
+                .get()
+                .uri(ArticleResource.ARTICLES)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBodyList(BasicArticleDto.class)
+                .value(basicArticles -> assertTrue(basicArticles.size() > 0))
+                .value(basicArticles -> assertEquals("84001", basicArticles.get(0).getBarcode()))
+                .value(basicArticles -> assertEquals("art 001", basicArticles.get(0).getSummary()))
+                .value(basicArticles -> assertEquals("84002", basicArticles.get(1).getBarcode()))
+                .value(basicArticles -> assertEquals("art 002", basicArticles.get(1).getSummary()));
+    }
 }
