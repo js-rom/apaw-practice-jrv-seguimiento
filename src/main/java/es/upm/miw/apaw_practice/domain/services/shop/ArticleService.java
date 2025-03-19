@@ -45,4 +45,8 @@ public class ArticleService {
     public Stream<Article> findByProviderAndPriceGreaterThan(String provider, BigDecimal price) {
         return this.articlePersistence.findByProviderAndPriceGreaterThan(provider, price);
     }
+
+    public Stream<Article> readAll() {
+        return articlePersistence.readAll();
+    }
 }

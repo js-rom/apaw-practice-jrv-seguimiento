@@ -3,5 +3,7 @@
 *.iws
 *.iml
 *.ipr
+### VS Code ###
+.vscode
 
 target

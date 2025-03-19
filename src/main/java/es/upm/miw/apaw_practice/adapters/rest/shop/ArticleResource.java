@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Stream;
 
+
 @RestController
 @RequestMapping(ArticleResource.ARTICLES)
 public class ArticleResource {
@@ -42,5 +43,12 @@ public class ArticleResource {
         BigDecimal price = new LexicalAnalyzer().extractWithAssure(q, "price", BigDecimal::new);
         return this.articleService.findByProviderAndPriceGreaterThan(provider, price);
     }
+
+    @GetMapping
+    public Stream<BasicArticleDto> readAll() {
+        return this.articleService.readAll()
+        .map(BasicArticleDto::new);
+    }
+    
 
 }
