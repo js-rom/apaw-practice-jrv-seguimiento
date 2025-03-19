@@ -3,10 +3,9 @@
 > Este proyecto es un apoyo docente de la asignatura y un ejemplo práctico del desarrollo de una aplicación Web siguiendo una Arquitectura por capas
 
 ### Estado del código
-[![DevOps](https://github.com/miw-upm/apaw-practice/actions/workflows/test-sonar.yml/badge.svg)](https://github.com/miw-upm/apaw-practice/actions/workflows/test-sonar.yml)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=es.upm.miw%3Aapaw-practice&metric=alert_status)](https://sonarcloud.io/dashboard?id=es.upm.miw%3Aapaw-practice)
-[![BCH compliance](https://bettercodehub.com/edge/badge/miw-upm/apaw-practice?branch=develop)](https://bettercodehub.com/results/miw-upm/apaw-practice)
-[![Heroku broken](https://apaw-practice.herokuapp.com/system/version-badge)](https://apaw-practice.herokuapp.com/swagger-ui.html)
+[![DevOps](https://github.com/js-rom/apaw-practice-jrv-seguimiento/actions/workflows/test-sonar.yml/badge.svg)](https://github.com/js-rom/apaw-practice-jrv-seguimiento/actions/workflows/test-sonar.yml)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=js-rom_apaw-practice-jrv-seguimiento&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=js-rom_apaw-practice-jrv-seguimiento)
+[![Heroku broken]()]()
 
 ### Tecnologías necesarias
 `Java` `Maven` `GitHub` `Travis-ci` `Sonarcloud` `Better Code Hub` `Slack` `Spring-boot` `Heroku` `OpenAPI`
