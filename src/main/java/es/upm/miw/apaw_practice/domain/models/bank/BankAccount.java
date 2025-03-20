@@ -1,0 +1,74 @@
+package es.upm.miw.apaw_practice.domain.models.bank;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
+
+public class BankAccount {
+
+    private String iban;
+    private BigDecimal balance;
+    private LocalDate openingDate;
+    private Boolean hasInterest;
+    private List<Client> clients;
+
+    public BankAccount() {
+        // empty for framework
+    }
+
+    public BankAccount(String iban, BigDecimal balance, LocalDate openingDate, Boolean hasInterest,
+            List<Client> clients) {
+        this.iban = iban;
+        this.balance = balance;
+        this.openingDate = openingDate;
+        this.hasInterest = hasInterest;
+        this.clients = clients;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public LocalDate getOpeningDate() {
+        return openingDate;
+    }
+
+    public void setOpeningDate(LocalDate openingDate) {
+        this.openingDate = openingDate;
+    }
+
+    public Boolean getHasInterest() {
+        return hasInterest;
+    }
+
+    public void setHasInterest(Boolean hasInterest) {
+        this.hasInterest = hasInterest;
+    }
+
+    public List<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
+
+    @Override
+    public String toString() {
+        return "BankAccount [iban=" + iban + ", balance=" + balance + ", openingDate=" + openingDate + ", hasInterest="
+                + hasInterest + ", clients=" + clients + "]";
+    }
+
+}
