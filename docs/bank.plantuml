@@ -1,0 +1,31 @@
+@startuml
+
+class BankAccount
+class BranchOffice
+class Client
+class InvestmentFund
+
+BankAccount "0..n" o--> "0..n" Client
+BranchOffice "0..n" o--> "0..n" Client
+Client "0..1" o--> "0..n" InvestmentFund
+
+BankAccount : iban: String
+BankAccount : balance: BigDecimal
+BankAccount : openingDate: LocalDate
+BankAccount : hasInterest: Boolean
+
+Client : dni: String
+Client : name: String
+Client : surName: String
+Client : phoneNumber: Integer
+Client : email: String
+
+BranchOffice : buildingName: String
+BranchOffice : employees: Integer
+BranchOffice : atmNumber: Integer
+
+InvestmentFund : name: String
+InvestmentFund : totalCapital: BigDecimal
+InvestmentFund : assets: Integer
+
+@enduml
