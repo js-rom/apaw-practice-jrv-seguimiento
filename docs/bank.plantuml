@@ -5,7 +5,7 @@ class BranchOffice
 class Client
 class InvestmentFund
 
-BankAccount "0..n" o--> "0..n" Client
+BankAccount "0..n" o--> "0..1" Client
 BranchOffice "0..n" o--> "0..n" Client
 Client "0..1" o--> "0..n" InvestmentFund
 
