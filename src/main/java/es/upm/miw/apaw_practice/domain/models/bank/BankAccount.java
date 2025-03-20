@@ -2,7 +2,6 @@ package es.upm.miw.apaw_practice.domain.models.bank;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 public class BankAccount {
 
@@ -10,19 +9,19 @@ public class BankAccount {
     private BigDecimal balance;
     private LocalDate openingDate;
     private Boolean hasInterest;
-    private List<Client> clients;
+    private Client client;
 
     public BankAccount() {
         // empty for framework
     }
 
     public BankAccount(String iban, BigDecimal balance, LocalDate openingDate, Boolean hasInterest,
-            List<Client> clients) {
+            Client client) {
         this.iban = iban;
         this.balance = balance;
         this.openingDate = openingDate;
         this.hasInterest = hasInterest;
-        this.clients = clients;
+        this.client = client;
     }
 
     public String getIban() {
@@ -57,18 +56,18 @@ public class BankAccount {
         this.hasInterest = hasInterest;
     }
 
-    public List<Client> getClients() {
-        return clients;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClients(List<Client> clients) {
-        this.clients = clients;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     @Override
     public String toString() {
         return "BankAccount [iban=" + iban + ", balance=" + balance + ", openingDate=" + openingDate + ", hasInterest="
-                + hasInterest + ", clients=" + clients + "]";
+                + hasInterest + ", client=" + client + "]";
     }
 
 }
