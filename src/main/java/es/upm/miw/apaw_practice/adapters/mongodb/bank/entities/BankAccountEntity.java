@@ -68,7 +68,7 @@ public class BankAccountEntity {
         this.openingDate = openingDate;
     }
 
-    public Boolean getHasInterest() {
+    public Boolean hasInterest() {
         return hasInterest;
     }
 
