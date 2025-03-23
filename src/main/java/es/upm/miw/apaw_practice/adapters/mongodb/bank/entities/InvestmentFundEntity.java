@@ -60,6 +60,10 @@ public class InvestmentFundEntity {
         this.assets = assets;
     }
 
+    public InvestmentFund toInvestmentFund() {
+        return new InvestmentFund(name, totalCapital, assets);
+    }
+
     @Override
     public String toString() {
         return "InvestmentFundEntity [id=" + id + ", name=" + name + ", totalCapital=" + totalCapital + ", assets="
