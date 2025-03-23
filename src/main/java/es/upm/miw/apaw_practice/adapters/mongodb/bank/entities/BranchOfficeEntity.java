@@ -3,10 +3,13 @@ package es.upm.miw.apaw_practice.adapters.mongodb.bank.entities;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import es.upm.miw.apaw_practice.domain.models.bank.BranchOffice;
 
 @Document
 public class BranchOfficeEntity {
@@ -22,6 +25,11 @@ public class BranchOfficeEntity {
 
     public BranchOfficeEntity() {
         // empty for framework
+    }
+
+    public BranchOfficeEntity(BranchOffice branchOffice) {
+        BeanUtils.copyProperties(branchOffice, this);
+        this.id = UUID.randomUUID().toString();
     }
 
     public BranchOfficeEntity(String buildingName, Integer employees, Integer atmNumber,
@@ -71,6 +79,12 @@ public class BranchOfficeEntity {
 
     public void setClientsEntities(List<ClientEntity> clientsEntities) {
         this.clientsEntities = clientsEntities;
+    }
+
+    public BranchOffice toBranchOffice() {
+        BranchOffice branchOffice = new BranchOffice();
+        BeanUtils.copyProperties(this, branchOffice);
+        return branchOffice;
     }
 
     @Override
