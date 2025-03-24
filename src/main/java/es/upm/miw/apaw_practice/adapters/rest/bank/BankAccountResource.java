@@ -27,6 +27,7 @@ public class BankAccountResource {
 
     @PutMapping(IBAN_ID)
     public BankAccount updateBankAccount(@PathVariable String iban, @RequestBody BankAccount bankAccount) {
+        System.out.println(bankAccount);
         return this.bankAccountService.updateBankAccount(iban, bankAccount);
     }
 }

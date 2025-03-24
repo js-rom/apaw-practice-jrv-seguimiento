@@ -31,10 +31,10 @@ public class BankAccountPersistenceMongodb implements BankAccountPersistence {
     }
 
     @Override
-    public BankAccount updateBankAccount(String iban, BankAccount bankAccount) {
+    public BankAccount updateBankAccount(BankAccount bankAccount) {
         BankAccountEntity bankAccountEntity = this.bankAccountRepository
-                .findByIban(iban)
-                .orElseThrow(() -> new NotFoundException("BankAccount iban" + iban));
+                .findByIban(bankAccount.getIban())
+                .orElseThrow(() -> new NotFoundException("BankAccount iban" + bankAccount.getIban()));
         BeanUtils.copyProperties(bankAccount, bankAccountEntity);
         ClientEntity clientEntity = this.clientRepository
                 .findByDni(bankAccount.getClientDni())

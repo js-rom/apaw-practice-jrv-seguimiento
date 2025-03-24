@@ -7,6 +7,6 @@ import es.upm.miw.apaw_practice.domain.models.bank.BankAccount;
 @Repository
 public interface BankAccountPersistence {
     public BankAccount readByIban(String iban);
-    public BankAccount updateBankAccount(String iban, BankAccount bankAccount);
+    public BankAccount updateBankAccount(BankAccount bankAccount);
 
 }
