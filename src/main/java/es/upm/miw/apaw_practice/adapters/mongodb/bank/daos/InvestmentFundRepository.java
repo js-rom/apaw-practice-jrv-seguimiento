@@ -9,4 +9,6 @@ import es.upm.miw.apaw_practice.adapters.mongodb.bank.entities.InvestmentFundEnt
 public interface InvestmentFundRepository extends MongoRepository<InvestmentFundEntity, String> {
 
     Optional<InvestmentFundEntity> findByName(String name);
+
+    void deleteByName(String name);
 }
