@@ -3,6 +3,8 @@ package es.upm.miw.apaw_practice.domain.models.bank;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class BankAccount {
 
     private String iban;
@@ -48,7 +50,7 @@ public class BankAccount {
         this.openingDate = openingDate;
     }
 
-    public Boolean getHasInterest() {
+    public Boolean hasInterest() {
         return hasInterest;
     }
 
@@ -62,6 +64,11 @@ public class BankAccount {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    @JsonIgnore
+    public String getClientDni() {
+        return this.client.getDni();
     }
 
     @Override
