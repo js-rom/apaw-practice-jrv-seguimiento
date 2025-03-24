@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping(BranchOfficeResource.BRANCH_OFFICE)
 public class BranchOfficeResource {
 
-    static final String BRANCH_OFFICE = "/bank/branchOffices";
+    static final String BRANCH_OFFICE = "/bank/branch-offices";
 
     BranchOfficeService branchOfficeService;
 
