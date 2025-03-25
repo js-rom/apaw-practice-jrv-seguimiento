@@ -8,4 +8,6 @@ import es.upm.miw.apaw_practice.domain.models.bank.Client;
 public interface ClientPersistence {
 
     Client readByDni(String dni);
+
+    Client update(Client client);
 }
