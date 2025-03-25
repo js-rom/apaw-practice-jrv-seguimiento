@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping(BankAccountResource.BANK_ACCOUNT)
 public class BankAccountResource {
 
-    static final String BANK_ACCOUNT = "/bank/bankAccounts"; 
+    static final String BANK_ACCOUNT = "/bank/bank-accounts"; 
     static final String IBAN_ID = "/{iban}";
 
     BankAccountService bankAccountService;
@@ -27,7 +27,6 @@ public class BankAccountResource {
 
     @PutMapping(IBAN_ID)
     public BankAccount updateBankAccount(@PathVariable String iban, @RequestBody BankAccount bankAccount) {
-        System.out.println(bankAccount);
         return this.bankAccountService.updateBankAccount(iban, bankAccount);
     }
 }

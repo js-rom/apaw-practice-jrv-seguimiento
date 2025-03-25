@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import es.upm.miw.apaw_practice.adapters.mongodb.bank.daos.ClientRepository;
+import es.upm.miw.apaw_practice.adapters.mongodb.bank.entities.ClientEntity;
 import es.upm.miw.apaw_practice.domain.exceptions.NotFoundException;
 import es.upm.miw.apaw_practice.domain.models.bank.Client;
 import es.upm.miw.apaw_practice.domain.persistence_ports.bank.ClientPersistence;
@@ -21,7 +22,18 @@ public class ClientPersistenceMongodb implements ClientPersistence {
     @Override
     public Client readByDni(String dni) {
         return this.clientRepository.findByDni(dni)
-            .orElseThrow(() -> new NotFoundException(" Client dni: " + dni))
-            .toClient();
+                .orElseThrow(() -> new NotFoundException(" Client dni: " + dni))
+                .toClient();
+    }
+
+    @Override
+    public Client update(Client client) {
+        ClientEntity clientEntity = this.clientRepository
+                .findByDni(client.getDni())
+                .orElseThrow(() -> new NotFoundException("Client dni" + client.getDni()));
+        clientEntity.fromClient(client);
+        return this.clientRepository
+                .save(clientEntity)
+                .toClient();
     }
 }
