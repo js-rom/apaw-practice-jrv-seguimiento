@@ -14,14 +14,14 @@ public class InvestmentFundResource {
     static final String INVESTMENT_FUNDS = "/bank/investment-funds";
     static final String NAME = "/{name}";
 
-    InvestmentFundService investmentFundResource;
+    InvestmentFundService investmentFundService;
 
-    public InvestmentFundResource(InvestmentFundService investmentFundResource) {
-        this.investmentFundResource = investmentFundResource;
+    public InvestmentFundResource(InvestmentFundService investmentFundService) {
+        this.investmentFundService = investmentFundService;
     }
 
     @DeleteMapping(NAME)
     public void delete(@PathVariable String name) {
-        this.investmentFundResource.delete(name);
+        this.investmentFundService.delete(name);
     }
 }
