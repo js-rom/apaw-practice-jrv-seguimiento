@@ -1,5 +1,6 @@
 package es.upm.miw.apaw_practice.adapters.mongodb.bank.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collector;
@@ -26,7 +27,7 @@ public class ClientEntity {
     private Integer phoneNumber;
     private String email;
     @DBRef
-    private List<InvestmentFundEntity> investmentFundsEntities;
+    private List<InvestmentFundEntity> investmentFundsEntities = new ArrayList<InvestmentFundEntity>();
 
     public ClientEntity() {
         // empty for framework
