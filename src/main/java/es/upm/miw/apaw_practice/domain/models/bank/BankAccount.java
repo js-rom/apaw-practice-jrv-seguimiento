@@ -50,7 +50,7 @@ public class BankAccount {
         this.openingDate = openingDate;
     }
 
-    public Boolean hasInterest() {
+    public Boolean getHasInterest() {
         return hasInterest;
     }
 

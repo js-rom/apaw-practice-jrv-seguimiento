@@ -27,7 +27,7 @@ class BankAccountRepositoryIT {
         assertNotNull(bankAccount.getId());
         assertEquals(0, new BigDecimal("200.20").compareTo(bankAccount.getBalance()));
         assertEquals(0, LocalDate.of(2021, 12, 1).compareTo(bankAccount.getOpeningDate()));
-        assertFalse(bankAccount.hasInterest());
+        assertFalse(bankAccount.getHasInterest());
         assertEquals("11111111A", bankAccount.getClientEntity().getDni());
     }
 }

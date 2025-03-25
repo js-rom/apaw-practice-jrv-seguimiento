@@ -41,7 +41,7 @@ public class BankAccountResourceIT {
                     assertEquals("iban1", bankAccountData.getIban());
                     assertEquals(0, bankAccountData.getBalance().compareTo(new BigDecimal("200.20")));
                     assertEquals(0, bankAccountData.getOpeningDate().compareTo(LocalDate.of(2021, 1, 1)));
-                    assertEquals(true, bankAccount.hasInterest());
+                    assertEquals(true, bankAccount.getHasInterest());
                 });
     }
 
