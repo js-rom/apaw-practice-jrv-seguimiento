@@ -5,6 +5,7 @@ import java.util.UUID;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -103,6 +104,10 @@ public class ClientEntity {
             .map(InvestmentFundEntity::toInvestmentFund)
             .collect(Collectors.toList());
         return new Client(dni, name, surname, phoneNumber, email, investmentFunds);
+    }
+
+    public void fromClient(Client client) {
+        BeanUtils.copyProperties(client, this);
     }
 
     @Override

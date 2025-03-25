@@ -6,9 +6,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.web.reactive.function.BodyInserter;
+import org.springframework.web.reactive.function.BodyInserters;
 
 import es.upm.miw.apaw_practice.adapters.rest.RestTestConfig;
 import es.upm.miw.apaw_practice.domain.models.bank.Client;
+import es.upm.miw.apaw_practice.domain.models.bank.ClientNameUpdating;
 
 @RestTestConfig
 public class ClientEntityResourceIT {
@@ -42,5 +45,16 @@ public class ClientEntityResourceIT {
                 .uri(ClientResource.CLIENT + ClientResource.DNI_ID, "asd")
                 .exchange()
                 .expectStatus().isNotFound();
+    }
+
+    @Test
+    void testUpdateName() {
+        ClientNameUpdating clientNameUpdating = new ClientNameUpdating("11111111A", "pepito");
+        this.webTestClient
+            .patch()
+            .uri(ClientResource.CLIENT + ClientResource.DNI_ID, "11111111A")
+            .body(BodyInserters.fromValue(clientNameUpdating))
+            .exchange()
+            .expectStatus().isOk();
     }
 }
