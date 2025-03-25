@@ -16,8 +16,8 @@ public class InvestmentFundResource {
 
     InvestmentFundService investmentFundService;
 
-    public InvestmentFundResource(InvestmentFundService investmentFundResource) {
-        this.investmentFundService = investmentFundResource;
+    public InvestmentFundResource(InvestmentFundService investmentFundService) {
+        this.investmentFundService = investmentFundService;
     }
 
     @DeleteMapping(NAME)
