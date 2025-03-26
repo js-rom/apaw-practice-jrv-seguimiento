@@ -1,5 +1,7 @@
 package es.upm.miw.apaw_practice.adapters.mongodb.bank.persistence;
 
+import java.util.stream.Stream;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 
@@ -41,6 +43,16 @@ public class BankAccountPersistenceMongodb implements BankAccountPersistence {
                 .orElseThrow(() -> new NotFoundException("Client dni:" + bankAccount.getClientDni()));
         bankAccountEntity.setClientEntity(clientEntity);
         return this.bankAccountRepository.save(bankAccountEntity).toBankAccount();
+    }
+
+    @Override
+    public Stream<BankAccount> readAll() {
+        return this.bankAccountRepository.findAll().stream()
+                .map(bankAccountEntity -> {
+                    BankAccount bankAccount = bankAccountEntity.toBankAccount();
+                        bankAccount.setClient(bankAccountEntity.getClientEntity().toClient());
+                    return bankAccount;
+                });
     }
 
 }

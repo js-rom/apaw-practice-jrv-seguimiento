@@ -9,11 +9,20 @@ import es.upm.miw.apaw_practice.domain.services.bank.BranchOfficeService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.math.BigDecimal;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
 @RestController
 @RequestMapping(BranchOfficeResource.BRANCH_OFFICE)
 public class BranchOfficeResource {
 
     static final String BRANCH_OFFICE = "/bank/branch-offices";
+    static final String BUILDING_NAME = "/{buildingName}";
+    static final String BALANCE = "/balance";
 
     BranchOfficeService branchOfficeService;
 
@@ -25,5 +34,12 @@ public class BranchOfficeResource {
     public BranchOffice create(@RequestBody BranchOffice branchOffice) {
         return this.branchOfficeService.create(branchOffice);
     }
+
+    @GetMapping(BUILDING_NAME + BALANCE)
+    public BigDecimal getAssociatedBalanceByBuildingName(@PathVariable String buildingName) {
+        System.out.println(this.branchOfficeService.getAssociatedBalanceByBuildingName(buildingName));
+        return this.branchOfficeService.getAssociatedBalanceByBuildingName(buildingName);
+    }
+    
 
 }

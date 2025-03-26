@@ -69,7 +69,7 @@ public class BankSeederService {
                 new BankAccountEntity("iban6", new BigDecimal("600.60"), LocalDate.of(2024, 3, 14),
                         true, clients[4]),
                 new BankAccountEntity("iban7", new BigDecimal("700.70"), LocalDate.of(2024, 3, 14),
-                        true, null),
+                        true, clients[4]),
         };
         this.bankAccountRepository.saveAll(Arrays.asList(bankAccounts));
         BranchOfficeEntity[] branchOffices = {
