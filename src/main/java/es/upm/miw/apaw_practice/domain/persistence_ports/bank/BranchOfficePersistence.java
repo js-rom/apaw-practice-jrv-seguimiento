@@ -9,4 +9,5 @@ public interface BranchOfficePersistence {
 
     public boolean existAtmNumber(Integer atmNumber);
     public BranchOffice create(BranchOffice branchOffice);
+    public BranchOffice findByBuildingName(String buildingName);
 }

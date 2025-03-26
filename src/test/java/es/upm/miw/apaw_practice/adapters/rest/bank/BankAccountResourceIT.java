@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 
+import es.upm.miw.apaw_practice.adapters.mongodb.bank.entities.BankAccountEntity;
 import es.upm.miw.apaw_practice.adapters.rest.RestTestConfig;
 import es.upm.miw.apaw_practice.domain.models.bank.BankAccount;
 import es.upm.miw.apaw_practice.domain.models.bank.Client;
@@ -26,37 +27,45 @@ public class BankAccountResourceIT {
     @Test
     void testUpdate() {
         Client client = new Client("11111111A", "jesús", "romero vidal", 111111111, "jesus.RomeroVidal@gmail.com",
-                        null);
+                null);
         BankAccount bankAccount = new BankAccount("iban1", new BigDecimal("200.20"), LocalDate.of(2021, 1, 1),
                 true, client);
         this.webTestClient
-            .put()
-            .uri(BankAccountResource.BANK_ACCOUNT + BankAccountResource.IBAN_ID,"iban1")
-            .body(BodyInserters.fromValue(bankAccount))
-            .exchange()
-            .expectStatus().isOk()
-            .expectBody(BankAccount.class)
-            .value(Assertions::assertNotNull)
-            .value(bankAccountData -> {
+                .put()
+                .uri(BankAccountResource.BANK_ACCOUNT + BankAccountResource.IBAN_ID, "iban1")
+                .body(BodyInserters.fromValue(bankAccount))
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody(BankAccount.class)
+                .value(Assertions::assertNotNull)
+                .value(bankAccountData -> {
                     assertEquals("iban1", bankAccountData.getIban());
                     assertEquals(0, bankAccountData.getBalance().compareTo(new BigDecimal("200.20")));
                     assertEquals(0, bankAccountData.getOpeningDate().compareTo(LocalDate.of(2021, 1, 1)));
                     assertEquals(true, bankAccount.getHasInterest());
                 });
+
+        BankAccount previousBankAccount = new BankAccount("iban1", new BigDecimal("100.10"), LocalDate.of(2020, 1, 31),
+                true, client);
+        this.webTestClient
+                .put()
+                .uri(BankAccountResource.BANK_ACCOUNT + BankAccountResource.IBAN_ID, "iban1")
+                .body(BodyInserters.fromValue(previousBankAccount))
+                .exchange();
     }
 
     @Test
     void testUpdateNotFound() {
         Client client = new Client("11111111A", "jesús", "romero vidal", 111111111, "jesus.RomeroVidal@gmail.com",
-                        null);
+                null);
         BankAccount bankAccount = new BankAccount("iban1", new BigDecimal("200.20"), LocalDate.of(2021, 1, 1),
                 true, client);
         this.webTestClient
-            .put()
-            .uri(BankAccountResource.BANK_ACCOUNT + BankAccountResource.IBAN_ID,"iban8")
-            .body(BodyInserters.fromValue(bankAccount))
-            .exchange()
-            .expectStatus().isNotFound();
-            
+                .put()
+                .uri(BankAccountResource.BANK_ACCOUNT + BankAccountResource.IBAN_ID, "iban8")
+                .body(BodyInserters.fromValue(bankAccount))
+                .exchange()
+                .expectStatus().isNotFound();
+
     }
 }

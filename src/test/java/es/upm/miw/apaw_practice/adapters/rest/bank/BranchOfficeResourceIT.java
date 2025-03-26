@@ -1,5 +1,8 @@
 package es.upm.miw.apaw_practice.adapters.rest.bank;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
@@ -42,5 +45,18 @@ public class BranchOfficeResourceIT {
                 .body(BodyInserters.fromValue(branchOffice))
                 .exchange()
                 .expectStatus().isEqualTo(HttpStatus.CONFLICT);
+    }
+
+    @Test
+    void testGetAssociatedBalanceByBuildingName() {
+        this.webTestClient
+        .get()
+        .uri(BranchOfficeResource.BRANCH_OFFICE + BranchOfficeResource.BUILDING_NAME + BranchOfficeResource.BALANCE,"building 1")
+        .exchange()
+        .expectStatus().isOk()
+        .expectBody(BigDecimal.class)
+        .value(balance -> {
+            assertEquals(0, balance.compareTo(new BigDecimal("600.60")));
+        });
     }
 }

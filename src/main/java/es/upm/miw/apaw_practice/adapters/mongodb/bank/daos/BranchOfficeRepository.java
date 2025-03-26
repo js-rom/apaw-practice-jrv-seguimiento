@@ -9,4 +9,5 @@ import es.upm.miw.apaw_practice.adapters.mongodb.bank.entities.BranchOfficeEntit
 public interface BranchOfficeRepository extends MongoRepository<BranchOfficeEntity, String> {
 
     Optional<BranchOfficeEntity> findByAtmNumber(Integer atmNumber);
+    Optional<BranchOfficeEntity> findByBuildingName(String buildingName);
 }
