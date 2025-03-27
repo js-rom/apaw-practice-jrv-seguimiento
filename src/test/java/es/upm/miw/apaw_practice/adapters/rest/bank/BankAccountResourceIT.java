@@ -1,11 +1,15 @@
 package es.upm.miw.apaw_practice.adapters.rest.bank;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,55 +21,79 @@ import es.upm.miw.apaw_practice.adapters.mongodb.bank.entities.BankAccountEntity
 import es.upm.miw.apaw_practice.adapters.rest.RestTestConfig;
 import es.upm.miw.apaw_practice.domain.models.bank.BankAccount;
 import es.upm.miw.apaw_practice.domain.models.bank.Client;
+import es.upm.miw.apaw_practice.domain.models.bank.InvestmentFund;
 
 @RestTestConfig
 public class BankAccountResourceIT {
 
-    @Autowired
-    WebTestClient webTestClient;
+        @Autowired
+        WebTestClient webTestClient;
 
-    @Test
-    void testUpdate() {
-        Client client = new Client("11111111A", "jesús", "romero vidal", 111111111, "jesus.RomeroVidal@gmail.com",
-                null);
-        BankAccount bankAccount = new BankAccount("iban1", new BigDecimal("200.20"), LocalDate.of(2021, 1, 1),
-                true, client);
-        this.webTestClient
-                .put()
-                .uri(BankAccountResource.BANK_ACCOUNT + BankAccountResource.IBAN_ID, "iban1")
-                .body(BodyInserters.fromValue(bankAccount))
-                .exchange()
-                .expectStatus().isOk()
-                .expectBody(BankAccount.class)
-                .value(Assertions::assertNotNull)
-                .value(bankAccountData -> {
-                    assertEquals("iban1", bankAccountData.getIban());
-                    assertEquals(0, bankAccountData.getBalance().compareTo(new BigDecimal("200.20")));
-                    assertEquals(0, bankAccountData.getOpeningDate().compareTo(LocalDate.of(2021, 1, 1)));
-                    assertEquals(true, bankAccount.getHasInterest());
-                });
+        @Test
+        void testUpdate() {
+                Client client = new Client("11111111A", "jesús", "romero vidal", 111111111,
+                                "jesus.RomeroVidal@gmail.com",
+                                null);
+                BankAccount bankAccount = new BankAccount("iban1", new BigDecimal("200.20"), LocalDate.of(2021, 1, 1),
+                                true, client);
+                this.webTestClient
+                                .put()
+                                .uri(BankAccountResource.BANK_ACCOUNT + BankAccountResource.IBAN_ID, "iban1")
+                                .body(BodyInserters.fromValue(bankAccount))
+                                .exchange()
+                                .expectStatus().isOk()
+                                .expectBody(BankAccount.class)
+                                .value(Assertions::assertNotNull)
+                                .value(bankAccountData -> {
+                                        assertEquals("iban1", bankAccountData.getIban());
+                                        assertEquals(0, bankAccountData.getBalance()
+                                                        .compareTo(new BigDecimal("200.20")));
+                                        assertEquals(0, bankAccountData.getOpeningDate()
+                                                        .compareTo(LocalDate.of(2021, 1, 1)));
+                                        assertEquals(true, bankAccount.getHasInterest());
+                                });
 
-        BankAccount previousBankAccount = new BankAccount("iban1", new BigDecimal("100.10"), LocalDate.of(2020, 1, 31),
-                true, client);
-        this.webTestClient
-                .put()
-                .uri(BankAccountResource.BANK_ACCOUNT + BankAccountResource.IBAN_ID, "iban1")
-                .body(BodyInserters.fromValue(previousBankAccount))
-                .exchange();
-    }
+                BankAccount previousBankAccount = new BankAccount("iban1", new BigDecimal("100.10"),
+                                LocalDate.of(2020, 1, 31),
+                                true, client);
+                this.webTestClient
+                                .put()
+                                .uri(BankAccountResource.BANK_ACCOUNT + BankAccountResource.IBAN_ID, "iban1")
+                                .body(BodyInserters.fromValue(previousBankAccount))
+                                .exchange();
+        }
 
-    @Test
-    void testUpdateNotFound() {
-        Client client = new Client("11111111A", "jesús", "romero vidal", 111111111, "jesus.RomeroVidal@gmail.com",
-                null);
-        BankAccount bankAccount = new BankAccount("iban1", new BigDecimal("200.20"), LocalDate.of(2021, 1, 1),
-                true, client);
-        this.webTestClient
-                .put()
-                .uri(BankAccountResource.BANK_ACCOUNT + BankAccountResource.IBAN_ID, "iban8")
-                .body(BodyInserters.fromValue(bankAccount))
-                .exchange()
-                .expectStatus().isNotFound();
+        @Test
+        void testUpdateNotFound() {
+                Client client = new Client("11111111A", "jesús", "romero vidal", 111111111,
+                                "jesus.RomeroVidal@gmail.com",
+                                null);
+                BankAccount bankAccount = new BankAccount("iban1", new BigDecimal("200.20"), LocalDate.of(2021, 1, 1),
+                                true, client);
+                this.webTestClient
+                                .put()
+                                .uri(BankAccountResource.BANK_ACCOUNT + BankAccountResource.IBAN_ID, "iban8")
+                                .body(BodyInserters.fromValue(bankAccount))
+                                .exchange()
+                                .expectStatus().isNotFound();
 
-    }
+        }
+
+        @Test
+        void testGetAssociatedInvestmentFunds() {
+                this.webTestClient
+                                .get()
+                                .uri(BankAccountResource.BANK_ACCOUNT + BankAccountResource.IBAN_ID, "iban1")
+                                .exchange()
+                                .expectStatus().isOk()
+                                .expectBodyList(InvestmentFund.class)
+                                .consumeWith(entityList -> {
+                                        assertNotNull(entityList.getResponseBody());
+                                        List<String> fundsList = entityList.getResponseBody().stream()
+                                                        .map(InvestmentFund::getName)
+                                                        .collect(Collectors.toList());
+                                        assertTrue(fundsList.containsAll(Arrays.asList("fund 001", "fund 002")));
+                                        assertFalse(fundsList.contains("fund 003"));
+                                });
+        }
 }
