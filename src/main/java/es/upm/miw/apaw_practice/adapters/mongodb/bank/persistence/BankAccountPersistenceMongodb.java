@@ -9,8 +9,10 @@ import es.upm.miw.apaw_practice.adapters.mongodb.bank.daos.BankAccountRepository
 import es.upm.miw.apaw_practice.adapters.mongodb.bank.daos.ClientRepository;
 import es.upm.miw.apaw_practice.adapters.mongodb.bank.entities.BankAccountEntity;
 import es.upm.miw.apaw_practice.adapters.mongodb.bank.entities.ClientEntity;
+import es.upm.miw.apaw_practice.adapters.mongodb.bank.entities.InvestmentFundEntity;
 import es.upm.miw.apaw_practice.domain.exceptions.NotFoundException;
 import es.upm.miw.apaw_practice.domain.models.bank.BankAccount;
+import es.upm.miw.apaw_practice.domain.models.bank.InvestmentFund;
 import es.upm.miw.apaw_practice.domain.persistence_ports.bank.BankAccountPersistence;
 
 @Repository("bankAccountPersistence")
@@ -50,9 +52,19 @@ public class BankAccountPersistenceMongodb implements BankAccountPersistence {
         return this.bankAccountRepository.findAll().stream()
                 .map(bankAccountEntity -> {
                     BankAccount bankAccount = bankAccountEntity.toBankAccount();
-                        bankAccount.setClient(bankAccountEntity.getClientEntity().toClient());
+                    bankAccount.setClient(bankAccountEntity.getClientEntity().toClient());
                     return bankAccount;
                 });
+    }
+
+    public Stream<InvestmentFund> getAssociatedInvestmentFunds(String iban) {
+        return this.bankAccountRepository.findByIban(iban)
+                .orElseThrow(() -> new NotFoundException("BankAccount iban:" + iban))
+                .getClientEntity()
+                .getInvestmentFundsEntities().stream()
+                .map(InvestmentFundEntity::toInvestmentFund)
+                .distinct();
+
     }
 
 }
