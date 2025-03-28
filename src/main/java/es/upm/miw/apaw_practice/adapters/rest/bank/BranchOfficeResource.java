@@ -37,7 +37,6 @@ public class BranchOfficeResource {
 
     @GetMapping(BUILDING_NAME + BALANCE)
     public BigDecimal getAssociatedBalanceByBuildingName(@PathVariable String buildingName) {
-        System.out.println(this.branchOfficeService.getAssociatedBalanceByBuildingName(buildingName));
         return this.branchOfficeService.getAssociatedBalanceByBuildingName(buildingName);
     }
     
