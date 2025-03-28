@@ -11,6 +11,9 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import es.upm.miw.apaw_practice.TestConfig;
+
+@TestConfig
 class ClientsTreeTest {
 
     private ClientsTreeLeaf clientsTreeLeaf1;
