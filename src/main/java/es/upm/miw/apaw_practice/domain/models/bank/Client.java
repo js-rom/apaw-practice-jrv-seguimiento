@@ -2,6 +2,8 @@ package es.upm.miw.apaw_practice.domain.models.bank;
 
 import java.util.List;
 
+import es.upm.miw.apaw_practice.domain.models.bank.ClientBuilders.Optionals;
+
 public class Client {
 
     private String dni;
@@ -71,6 +73,61 @@ public class Client {
 
     public void setInvestmentFunds(List<InvestmentFund> investmentFunds) {
         this.investmentFunds = investmentFunds;
+    }
+
+    public static ClientBuilders.Dni builder() {
+        return new Builder();
+    }
+
+    public static class Builder implements ClientBuilders.Dni, ClientBuilders.Name, ClientBuilders.Optionals {
+
+        private Client client;
+
+        public Builder() {
+            this.client = new Client();
+        }
+
+        @Override
+        public Optionals surName(String surName) {
+            this.client.surname = surName;
+            return this;
+        }
+
+        @Override
+        public Optionals phoneNumber(int phoneNumber) {
+            this.client.phoneNumber = phoneNumber;
+            return this;
+        }
+
+        @Override
+        public Optionals email(String email) {
+            this.client.email = email;
+            return this;
+        }
+
+        @Override
+        public Optionals investmentFunds(List<InvestmentFund> investmentFunds) {
+            this.client.investmentFunds = investmentFunds;
+            return this;
+        }
+
+        @Override
+        public Optionals name(String name) {
+            this.client.name = name;
+            return this;
+        }
+
+        @Override
+        public ClientBuilders.Name dni(String dni) {
+            this.client.dni = dni;
+            return this;
+        }
+
+        @Override
+        public Client build() {
+            return this.client;
+        }
+
     }
 
     @Override
